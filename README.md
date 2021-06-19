@@ -13,4 +13,4 @@
 #   8. git clone https://github.com/li-moss/install.git
 #   9. cd install
 #  10. chmod +x install.sh 
-#  11. ./install.sh Access_Key Access_secret //(阿里云账号AccessKey 和 AccessSecret)
+#  11. ./install.sh Access_Key Access_secret PSK PASSWORD USERNAME //(阿里云账号AccessKey 和 AccessSecret)
