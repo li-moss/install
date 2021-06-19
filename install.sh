@@ -1,3 +1,7 @@
+# @Author: Li Yuan Rong
+# @Date:   2021-06-19 08:41:50
+# @Last Modified by:   Li Yuan Rong
+# @Last Modified time: 2021-06-19 08:46:44
 #!/bin/sh
 
 ############################################################
@@ -12,6 +16,7 @@
 #   6. 粘贴此文件，保存退出。
 #   7. chmod +x install.sh
 #   8. ./install.sh host_name
+#   ./install.sh Access_Key Access_secret
 ############################################################
 
 apt-get update && apt-get upgrade -y
@@ -22,8 +27,8 @@ USERNAME=LiYuanRong
 
 echo "========== install ddns-aliyun =========="
 
-Access_Key=LTAI4Fjy6K6kwajAXJgifm5E
-Access_secret=dbc6g0egmUUlaVaWvjmTa49QgVSnvd
+Access_Key=$1
+Access_secret=$2
 
 apt update && apt install git -y
 cd /home/pi
