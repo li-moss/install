@@ -1,7 +1,7 @@
 # @Author: Li Yuan Rong
 # @Date:   2021-06-19 08:41:50
 # @Last Modified by:   Li Yuan Rong
-# @Last Modified time: 2021-06-19 10:48:22
+# @Last Modified time: 2021-06-19 11:20:28
 #!/bin/sh
 
 ##################################################################################
@@ -18,14 +18,14 @@
 #   8. git clone https://github.com/li-moss/install.git
 #   9. cd install
 #  10. chmod +x install.sh 
-#  11. ./install.sh Access_Key Access_secret //(阿里云账号AccessKey 和 AccessSecret)
+#  11. ./install.sh Access_Key Access_secret PSK PASSWORD USERNAME //(阿里云账号AccessKey 和 AccessSecret)
 ##################################################################################
 
 #apt-get update && apt-get upgrade -y
 
-PSK=homemoss
-PASSWD=Moss686006
-USERNAME=LiYuanRong
+PSK=$3
+PASSWD=$4
+USERNAME=$5
 
 echo "========== install ddns-aliyun =========="
 
