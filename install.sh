@@ -1,23 +1,21 @@
 # @Author: Li Yuan Rong
 # @Date:   2021-06-19 08:41:50
 # @Last Modified by:   Li Yuan Rong
-# @Last Modified time: 2021-06-19 08:46:44
+# @Last Modified time: 2021-06-19 09:21:50
 #!/bin/sh
 
-############################################################
-#        strongSwan ipsec ikev1 ikev2 VPN
-#        MacOS, iOS, Android
+##################################################################################
+#   strongSwan ipsec ikev1 ikev2 VPN
+#   MacOS, iOS, Android
 #
 #   1. 镜像拷贝 raspberry pi 系统 *.img 文件
 #   2. 在根目录下创建 ssh 文件（不含后缀名）
 #   3. ssh pi@raspberrypi.local 登录(默认密码: raspberry)
 #   4. sudo -i
-#   5. nano install.sh
-#   6. 粘贴此文件，保存退出。
-#   7. chmod +x install.sh
-#   8. ./install.sh host_name
-#   ./install.sh Access_Key Access_secret
-############################################################
+#   5. git clone https://github.com/li-moss/install.git
+#   6. cd install
+#   7. ./install.sh Access_Key Access_secret //(阿里云账号AccessKey 和 AccessSecret)
+##################################################################################
 
 apt-get update && apt-get upgrade -y
 
@@ -76,7 +74,8 @@ sysctl -p
 
 ######### 编辑 /etc/rc.local ############################################
 sed -i '/exit 0/ i\for vpn in /proc/sys/net/ipv4/conf/*; do echo 0 > $vpn/accept_redirects; echo 0 > $vpn/send_redirects; done\
-iptables --table nat --append POSTROUTING --jump MASQUERADE' /etc/rc.local
+iptables --table nat --append POSTROUTING --jump MASQUERADE\
+sudo python3 /root/install/udpSvr.py &' /etc/rc.local
 
 ######  nano /etc/ipsec.conf   ############################
 
