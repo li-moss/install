@@ -1,7 +1,7 @@
 # @Author: Li Yuan Rong
 # @Date:   2021-06-19 08:41:50
 # @Last Modified by:   Li Yuan Rong
-# @Last Modified time: 2021-06-19 09:56:58
+# @Last Modified time: 2021-06-19 10:48:22
 #!/bin/sh
 
 ##################################################################################
@@ -15,9 +15,10 @@
 #   5. sudo -i
 #   6. apt-get update && apt-get upgrade -y
 #   7. apt update && apt install git -y
-#   6. git clone https://github.com/li-moss/install.git
-#   7. cd install
-#   8. ./install.sh Access_Key Access_secret //(阿里云账号AccessKey 和 AccessSecret)
+#   8. git clone https://github.com/li-moss/install.git
+#   9. cd install
+#  10. chmod +x install.sh 
+#  11. ./install.sh Access_Key Access_secret //(阿里云账号AccessKey 和 AccessSecret)
 ##################################################################################
 
 #apt-get update && apt-get upgrade -y
@@ -49,7 +50,7 @@ cat <<EOF >/home/pi/ddns-aliyun/conf.json
 EOF
 
 crontab <<EOF
-*/20 * * * * python3 /home/pi/ddns-aliyun/ddns.py >/dev/null 2>&1
+*/20 * * * * sudo python3 /home/pi/ddns-aliyun/ddns.py >/dev/null 2>&1
 EOF
 
 cd ~/
@@ -78,7 +79,7 @@ sysctl -p
 ######### 编辑 /etc/rc.local ############################################
 sed -i '/exit 0/ i\for vpn in /proc/sys/net/ipv4/conf/*; do echo 0 > $vpn/accept_redirects; echo 0 > $vpn/send_redirects; done\
 iptables --table nat --append POSTROUTING --jump MASQUERADE\
-sudo python3 /root/install/udpSvr.py &' /etc/rc.local
+sudo python /root/install/udpSvr.py &' /etc/rc.local
 
 ######  nano /etc/ipsec.conf   ############################
 
