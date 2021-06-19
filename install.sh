@@ -1,7 +1,7 @@
 # @Author: Li Yuan Rong
 # @Date:   2021-06-19 08:41:50
 # @Last Modified by:   Li Yuan Rong
-# @Last Modified time: 2021-06-19 09:21:50
+# @Last Modified time: 2021-06-19 09:56:58
 #!/bin/sh
 
 ##################################################################################
@@ -11,13 +11,16 @@
 #   1. 镜像拷贝 raspberry pi 系统 *.img 文件
 #   2. 在根目录下创建 ssh 文件（不含后缀名）
 #   3. ssh pi@raspberrypi.local 登录(默认密码: raspberry)
-#   4. sudo -i
-#   5. git clone https://github.com/li-moss/install.git
-#   6. cd install
-#   7. ./install.sh Access_Key Access_secret //(阿里云账号AccessKey 和 AccessSecret)
+#   4. 更改密码：passwd -> Enter -> current password(raspberry) -> new password -> Enter -> new password -> Enter
+#   5. sudo -i
+#   6. apt-get update && apt-get upgrade -y
+#   7. apt update && apt install git -y
+#   6. git clone https://github.com/li-moss/install.git
+#   7. cd install
+#   8. ./install.sh Access_Key Access_secret //(阿里云账号AccessKey 和 AccessSecret)
 ##################################################################################
 
-apt-get update && apt-get upgrade -y
+#apt-get update && apt-get upgrade -y
 
 PSK=homemoss
 PASSWD=Moss686006
@@ -28,7 +31,7 @@ echo "========== install ddns-aliyun =========="
 Access_Key=$1
 Access_secret=$2
 
-apt update && apt install git -y
+#apt update && apt install git -y
 cd /home/pi
 git clone https://github.com/dingguotu/ddns-aliyun.git
 
