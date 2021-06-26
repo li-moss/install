@@ -1,7 +1,7 @@
 # @Author: Li Yuan Rong
 # @Date:   2021-06-19 08:41:50
 # @Last Modified by:   Li Yuan Rong
-# @Last Modified time: 2021-06-26 11:54:10
+# @Last Modified time: 2021-06-26 11:59:31
 #!/bin/sh
 
 ##################################################################################
@@ -58,7 +58,7 @@ cd ~/
 
 echo "========== install strongswan and configuration =========="
 
-apt-get install strongswan libcharon-extra-plugins libstrongswan-extra-plugins dnsmasq -y
+apt-get install strongswan libcharon-extra-plugins libstrongswan-extra-plugins dnsmasq python3-flask -y
 apt install dnsutils -y
 
 ##### 设置静态ip地址 ####
@@ -139,8 +139,6 @@ conn ikev2-EAP
 
 include /var/lib/strongswan/ipsec.conf.inc
 EOF
-
-apt-get install python3-flask
 
 reboot
 
