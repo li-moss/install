@@ -1,7 +1,7 @@
 # @Author: Li Yuan Rong
 # @Date:   2021-06-19 08:41:50
 # @Last Modified by:   Li Yuan Rong
-# @Last Modified time: 2021-06-19 11:20:28
+# @Last Modified time: 2021-06-26 11:54:10
 #!/bin/sh
 
 ##################################################################################
@@ -51,6 +51,7 @@ EOF
 
 crontab <<EOF
 */20 * * * * sudo python3 /home/pi/ddns-aliyun/ddns.py >/dev/null 2>&1
+@reboot sleep 30 && sudo python3 /root/install/appWeb.py
 EOF
 
 cd ~/
@@ -139,7 +140,9 @@ conn ikev2-EAP
 include /var/lib/strongswan/ipsec.conf.inc
 EOF
 
-ipsec restart
+apt-get install python3-flask
+
+reboot
 
 exit 0
 

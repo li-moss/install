@@ -1,0 +1,141 @@
+<!-- 
+  @Author: Li Yuan Rong
+  @Date:   2021-06-26 11:40:46
+  @Last Modified by:   Li Yuan Rong
+  @Last Modified time: 2021-06-26 11:49:43
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <!-- iOS  -->
+    <!-- Make the app title different than the page title -->
+    <meta name="apple-mobile-web-app-title" content="Factory">
+    <!-- Allow web app to be run in full-screen mode -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Configure the status bar -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- Android  -->
+    <!-- Allow web app to be run in full-screen mode - Android. -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!--meta http-equiv="x-frame-options" content="SAMEORIGIN"-->
+    <meta http-equiv="x-dns-prefetch-control" content="on" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        iframe {
+            position: absolute;
+            background: transparent;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .button {
+            border: none;
+            display: block;
+            width: 115px;
+            height: 25px;
+            background: #4E9CAF;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            line-height: 22px;
+            font-size: 25px;
+        }
+
+        div.device-move-out {
+            animation-name: move-out;
+            animation-duration: 3s;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes move-out {
+            from {
+                left: -150px;
+            }
+
+            to {
+                left: 10px;
+            }
+        }
+
+        div.device-move-in {
+            animation-name: move-in;
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes move-in {
+            from {
+                left: 10px;
+            }
+
+            to {
+                left: -150px;
+            }
+        }
+
+        i {
+            width: 40px;
+            margin: auto;
+            position: absolute;
+            display: none;
+            left: calc(-100px + 50vw);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="_devices" style="position: absolute;">
+        {% for x in name.keys() %}
+        <br>
+        <span class="button" onclick="myFunction(this)" data-url={{name[x]}}>{{ x }}</span>
+        {% endfor %}
+    </div>
+    <div id="frame-container">
+    </div>
+    <i id="_close" class="far fa-home" style="fon-size:24px;" onclick="myClose(this)">HOME</i>
+    <script>
+        var begin_iframe = "<iframe id='_ifram' height='100%' width='100%' frameborder='0' noresize='noresize' src=";
+        var end_iframe = " frameborder='0' allowfullscreen='0'></iframe>";
+
+        function closeIframe() {
+            var ifram = document.getElementById("_ifram");
+            document.getElementById('frame-container').removeChild(ifram);
+        }
+        function myFunction(el) {
+            document.getElementById('_devices').className = 'device-move-in';
+            var begin_iframe = "<iframe id='_ifram' height='100%' width='100%' frameborder='0' noresize='noresize' src=";
+            var end_iframe = " frameborder='0' allowfullscreen='0'></iframe>";
+            var src_url = 'http://' + el.dataset.url + '/index';
+            var tag_iframe = begin_iframe + src_url + end_iframe;
+            document.getElementById('frame-container').innerHTML = tag_iframe
+            document.getElementById('_close').style.display = 'flex';
+        }
+        function myClose(el) {
+            document.getElementById('_ifram').src = '';
+            closeIframe()
+            document.getElementById('_devices').className = 'device-move-out';
+            document.getElementById('_close').style.display = 'none';
+        }
+        document.onvisibilitychange = function () {
+            if (document.visibilityState === 'visible') {
+                setTimeout(function () { window.location.reload(true); }, 500);
+            }
+        }
+    </script>
+</body>
+
+</html>
