@@ -2,7 +2,7 @@
   @Author: Li Yuan Rong
   @Date:   2021-06-26 11:40:46
   @Last Modified by:   Li Yuan Rong
-  @Last Modified time: 2021-06-26 11:49:43
+  @Last Modified time: 2021-06-29 07:11:44
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +25,14 @@
     <meta http-equiv="x-dns-prefetch-control" content="on" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
+        @media not screen and (max-height: 1024px) {
+            body {
+                zoom: 2.5;
+            }
+        }
+
         a {
             text-decoration: none;
         }
@@ -43,21 +50,21 @@
         .button {
             border: none;
             display: block;
-            width: 115px;
             height: 25px;
-            background: #4E9CAF;
-            padding: 10px;
-            text-align: center;
-            border-radius: 5px;
+            background: rgba(78, 156, 175, 0.66);
+            padding: 5px 10px;
+            text-align: start;
+            border-radius: 2px;
             color: white;
             font-weight: bold;
             line-height: 22px;
             font-size: 25px;
+            margin: 5px 0;
         }
 
         div.device-move-out {
             animation-name: move-out;
-            animation-duration: 3s;
+            animation-duration: 1s;
             animation-fill-mode: forwards;
         }
 
@@ -73,7 +80,7 @@
 
         div.device-move-in {
             animation-name: move-in;
-            animation-duration: 2s;
+            animation-duration: 1s;
             animation-fill-mode: forwards;
         }
 
@@ -88,48 +95,47 @@
         }
 
         i {
-            width: 40px;
             margin: auto;
             position: absolute;
             display: none;
-            left: calc(-100px + 50vw);
         }
     </style>
 </head>
 
-<body>
-    <div id="_devices" style="position: absolute;">
+<body style="overflow: hidden; margin-top: 0px;">
+    <i id="home-page" onclick="homeFunction(this)" class="fa fa-home" style="font-size:28px; display: none;"></i>
+    <div id="_devices" style="width: fit-content; position: absolute;">
         {% for x in name.keys() %}
-        <br>
-        <span class="button" onclick="myFunction(this)" data-url={{name[x]}}>{{ x }}</span>
+        <span class="button" onclick="myFunction(this)" data-url="http://{{ name[x] }}/index" target="_parent">{{ x
+            }}</span>
         {% endfor %}
     </div>
     <div id="frame-container">
     </div>
-    <i id="_close" class="far fa-home" style="fon-size:24px;" onclick="myClose(this)">HOME</i>
     <script>
-        var begin_iframe = "<iframe id='_ifram' height='100%' width='100%' frameborder='0' noresize='noresize' src=";
-        var end_iframe = " frameborder='0' allowfullscreen='0'></iframe>";
-
-        function closeIframe() {
+        function homeFunction(el) {
             var ifram = document.getElementById("_ifram");
             document.getElementById('frame-container').removeChild(ifram);
+            el.style.display = 'none';
+            document.getElementById('_devices').className = 'device-move-out'
         }
+
         function myFunction(el) {
-            document.getElementById('_devices').className = 'device-move-in';
-            var begin_iframe = "<iframe id='_ifram' height='100%' width='100%' frameborder='0' noresize='noresize' src=";
-            var end_iframe = " frameborder='0' allowfullscreen='0'></iframe>";
-            var src_url = 'http://' + el.dataset.url + '/index';
-            var tag_iframe = begin_iframe + src_url + end_iframe;
-            document.getElementById('frame-container').innerHTML = tag_iframe
-            document.getElementById('_close').style.display = 'flex';
+            var iframe_tag = "<iframe id='_ifram' sandbox='allow-scripts allow-same-origin' frameborder='0' noresize='noresize' ";
+            iframe_tag += "src=" + el.dataset.url;
+            iframe_tag += " frameborder='0'></iframe>";
+            document.getElementById('frame-container').innerHTML = iframe_tag;
+            el.parentNode.className = 'device-move-in'
         }
-        function myClose(el) {
-            document.getElementById('_ifram').src = '';
-            closeIframe()
-            document.getElementById('_devices').className = 'device-move-out';
-            document.getElementById('_close').style.display = 'none';
-        }
+
+        document.addEventListener('animationend', () => {
+            if (document.getElementById('_devices').className === 'device-move-in') {
+                document.getElementById('home-page').style.display = 'block'
+            } else {
+                document.getElementById('home-page').style.display = 'none'
+            }
+        });
+
         document.onvisibilitychange = function () {
             if (document.visibilityState === 'visible') {
                 setTimeout(function () { window.location.reload(true); }, 500);

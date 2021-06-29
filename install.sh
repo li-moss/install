@@ -1,7 +1,7 @@
 # @Author: Li Yuan Rong
 # @Date:   2021-06-19 08:41:50
 # @Last Modified by:   Li Yuan Rong
-# @Last Modified time: 2021-06-26 13:39:43
+# @Last Modified time: 2021-06-29 07:40:04
 #!/bin/sh
 
 ##################################################################################
@@ -15,8 +15,8 @@
 #   5. sudo -i
 #   6. apt-get update && apt-get upgrade -y
 #   7. apt update && apt install git -y
-#   8. git clone https://github.com/li-moss/install.git
-#   9. cd install
+#   8. git clone https://github.com/li-moss/install.git /home/pi/project
+#   9. cd /home/pi/project
 #  10. chmod +x install.sh 
 #  11. ./install.sh Access_Key Access_secret PSK PASSWORD USERNAME //(阿里云账号AccessKey 和 AccessSecret)
 ##################################################################################
@@ -51,7 +51,7 @@ EOF
 
 crontab <<EOF
 */20 * * * * sudo python3 /home/pi/ddns-aliyun/ddns.py >/dev/null 2>&1
-@reboot sleep 30 && sudo python3 /root/install/appWeb.py
+@reboot sleep 30 && sudo python3 /home/pi/project/appWeb.py
 EOF
 
 cd ~/
