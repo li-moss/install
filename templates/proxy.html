@@ -134,7 +134,7 @@
     <div id="_devices" style="width: fit-content; position: absolute;">
         {% for x in name.keys() %}
         <div>
-           <span class="button" onclick="myFunction(this)" data-url="http://{{ name[x] }}/index" target="_parent">{{ x }}</span>
+	   <a class="button" onclick="myFunction(this)" href={{ url_for('proxy' , path=name[x]) }} target='_iframe'>{{ x }}</a>
            <div>
 	      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 	      <i class="fa fa-trash" aria-hidden="true"></i>
@@ -143,14 +143,14 @@
         {% endfor %}
     </div>
     <div id="frame-container">
+	<iframe id='_iframe' name='_iframe' sandbox='allow-scripts allow-same-origin' frameborder='0' noresize='noresize' frameborder='0'></iframe>
     </div>
     <script>
         function homeFunction(el) {
-            document.getElementById("_ifram").removeEventListener("load", loadFunction);
-            var ifram = document.getElementById("_ifram");
-            document.getElementById('frame-container').removeChild(ifram);
-            el.style.display = 'none';
-            document.getElementById('_devices').className = 'device-move-out'
+            document.getElementById("_iframe").removeEventListener("load", loadFunction);
+ 	    window.location.reload(true);
+//            el.style.display = 'none';
+//            document.getElementById('_devices').className = 'device-move-out'
         }
 
 	function loadFunction() {
@@ -159,12 +159,8 @@
 
         function myFunction(el) {
     	    document.getElementById('ifarme-load').className = 'fa fa-spinner fa-pulse'
-            var iframe_tag = "<iframe id='_ifram' frameborder='0' noresize='noresize' ";
-            iframe_tag += "src=" + el.dataset.url;
-            iframe_tag += " frameborder='0'></iframe>";
-            document.getElementById('frame-container').innerHTML = iframe_tag;
             el.parentNode.parentNode.className = 'device-move-in'
-	    document.getElementById("_ifram").addEventListener("load", loadFunction);
+	    document.getElementById("_iframe").addEventListener("load", loadFunction);
         }
 
         document.addEventListener('animationend', () => {
