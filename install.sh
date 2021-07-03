@@ -1,7 +1,7 @@
 # @Author: Li Yuan Rong
 # @Date:   2021-06-19 08:41:50
 # @Last Modified by:   Li Yuan Rong
-# @Last Modified time: 2021-07-03 07:10:21
+# @Last Modified time: 2021-07-03 08:11:35
 #!/bin/sh
 
 ##################################################################################
@@ -82,7 +82,7 @@ sysctl -p
 ######### 编辑 /etc/rc.local ############################################
 sed -i '/exit 0/ i\for vpn in /proc/sys/net/ipv4/conf/*; do echo 0 > $vpn/accept_redirects; echo 0 > $vpn/send_redirects; done\
 iptables --table nat --append POSTROUTING --jump MASQUERADE\
-sudo python /root/install/udpSvr.py &' /etc/rc.local
+sudo python /home/pi/project/udpSvr.py &' /etc/rc.local
 
 ######  nano /etc/ipsec.conf   ############################
 
