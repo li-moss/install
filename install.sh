@@ -1,7 +1,7 @@
 # @Author: Li Yuan Rong
 # @Date:   2021-06-19 08:41:50
 # @Last Modified by:   Li Yuan Rong
-# @Last Modified time: 2021-06-29 07:40:04
+# @Last Modified time: 2021-07-03 07:10:21
 #!/bin/sh
 
 ##################################################################################
@@ -51,7 +51,7 @@ EOF
 
 crontab <<EOF
 */20 * * * * sudo python3 /home/pi/ddns-aliyun/ddns.py >/dev/null 2>&1
-@reboot sleep 30 && sudo python3 /home/pi/project/appWeb.py
+@reboot sleep 30 && sudo python3 /home/pi/project/proxy.py
 EOF
 
 cd ~/
@@ -61,6 +61,7 @@ echo "========== install strongswan and configuration =========="
 apt-get install strongswan libcharon-extra-plugins libstrongswan-extra-plugins dnsmasq python3-flask python3-pip -y
 apt install dnsutils -y
 pip3 install -U flask-cors
+pip3 install requests
 
 ##### 设置静态ip地址 ####
 echo "interface eth0" | tee -a /etc/dhcpcd.conf
