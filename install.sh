@@ -1,7 +1,7 @@
 # @Author: Li Yuan Rong
 # @Date:   2021-06-19 08:41:50
 # @Last Modified by:   Li Yuan Rong
-# @Last Modified time: 2021-07-03 08:11:35
+# @Last Modified time: 2021-07-05 22:13:22
 #!/bin/sh
 
 ##################################################################################
@@ -59,9 +59,10 @@ cd ~/
 echo "========== install strongswan and configuration =========="
 
 apt-get install strongswan libcharon-extra-plugins libstrongswan-extra-plugins dnsmasq python3-flask python3-pip -y
-apt install dnsutils -y
+apt install dnsutils python3-netifaces -y
 pip3 install -U flask-cors
 pip3 install requests
+
 
 ##### 设置静态ip地址 ####
 echo "interface eth0" | tee -a /etc/dhcpcd.conf

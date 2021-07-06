@@ -6,6 +6,7 @@ from flask import Flask, request, render_template, Response, url_for, stream_wit
 from flask_cors import CORS
 from requests import get, post
 import requests
+import netifaces
 
 app = Flask(__name__)
 CORS(app)
@@ -43,6 +44,26 @@ def proxy(path):
   if request.method == 'POST':
     encoded_data = request.data.decode('utf-8')
     return post(f'{proxy_url}{path}', data=encoded_data.encode('utf-8')).content
+
+@app.route('/setup')
+def setup():
+    net_dict={}
+    with open("/etc/hostname", 'r') as file_handle:
+        for line in file_handle:
+            if '#' not in line[0]:
+               net_dict['host']=line
+
+    net_dict['netmask'] = netifaces.ifaddresses('eth0')[netifaces.AF_INET][0]['netmask']
+    net_dict['addr'] = netifaces.ifaddresses('eth0')[netifaces.AF_INET][0]['addr']
+    net_dict['gateway'] = netifaces.gateways()['default'][netifaces.AF_INET][0]
+
+    return render_template('setup.html', net=net_dict)
+
+
+@app.route('/submit', methods=['GET', 'POST'])
+def submit():
+    print(request.form.to_dict()['Host'])
+    return render_template('result.html', result='Submit OK') 
 
 if __name__ == "__main__":
    app.run(host="0.0.0.0", port=80, debug=True)

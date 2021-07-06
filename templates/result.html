@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <link rel="shortcut icon" href="#" />
+    <style>
+        h1 {
+            display: flex;
+            justify-content: center;
+            padding-top: 1.5em;
+            color: #cfc09f;
+            font-family: 'Playfair Display', serif;
+            font-size: 8vw;
+            margin: 20px;
+            font-weight: 400;
+            transform: scale(1);
+            text-shadow: -1px 0 1px #c6bb9f, 0 1px 1px #c6bb9f, 5px 5px 10px rgba(0, 0, 0, 0.4),-5px -5px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        h1:before {
+            content: attr(data-heading);
+            position: absolute;
+            z-index: 1;
+            background: linear-gradient(to bottom, #cfc09f 22%,#634f2c 24%, #cfc09f 26%, #cfc09f 27%,#ffecb3 40%,#3a2c0f 78%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+        }
+    </style>
+</head>
+    <body>
+       <h1 data-heading="{{result}}">{{result}}</h1>
+    </body>
+</html>

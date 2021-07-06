@@ -1,0 +1,119 @@
+<!-- 
+  @Author: Li Yuan Rong
+  @Date:   2021-07-04 09:58:26
+  @Last Modified by:   Li Yuan Rong
+  @Last Modified time: 2021-07-04 16:51:10
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <!-- iOS  -->
+    <!-- Make the app title different than the page title -->
+    <meta name="apple-mobile-web-app-title" content="Factory">
+    <!-- Allow web app to be run in full-screen mode -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Configure the status bar -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- Android  -->
+    <!-- Allow web app to be run in full-screen mode - Android. -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!--meta http-equiv="x-frame-options" content="SAMEORIGIN"-->
+    <meta http-equiv="x-dns-prefetch-control" content="on" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            align-items: center;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            -webkit-appearance: none;
+            outline: none;
+            border: none;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 1px;
+            height: auto;
+            width: 45vw;
+	    max-width: 200px;
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        input[type="submit"] {
+            -webkit-appearance: none;
+            outline: none;
+            border: none;
+            width: 100px;
+            margin-top: 15px;
+            border-radius: 20px;
+            padding: 5px;
+            font-size: 16px;
+            background-color: green;
+            color: aliceblue;
+        }
+
+	h1 {
+	    display: flex;
+            justify-content: center;
+            padding-top: 1.5em;
+            color: #cfc09f;
+	    font-family: 'Playfair Display', serif;
+	    font-size: 6vw;
+	    margin: 20px;
+	    font-weight: 400;
+	    transform: scale(1);
+	    text-shadow: -1px 0 1px #c6bb9f, 0 1px 1px #c6bb9f, 5px 5px 10px rgba(0, 0, 0, 0.4),-5px -5px 10px rgba(0, 0, 0, 0.4);
+	}
+
+	h1:before {
+    	    content: attr(data-heading);
+    	    position: absolute;	
+	    z-index: 1;
+	    background: linear-gradient(to bottom, #cfc09f 22%,#634f2c 24%, #cfc09f 26%, #cfc09f 27%,#ffecb3 40%,#3a2c0f 78%); 
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+	    text-shadow: none;
+	}
+
+	form > div {
+	    display: flex;
+    	    align-items: center;
+    	    flex-direction: row;
+    	    justify-content: space-between;
+	}
+
+	form > div >span {
+	    color: aliceblue;
+    	    width: 65px;
+	}
+    </style>
+</head>
+
+<body>
+    <h1 data-heading="Net Configuration">Net Configuration</h1>
+    <form action="/submit" method="POST">
+       <div><span>Name</span><input type="text" name="Host" placeholder="{{ net['host'] }}"/></div>
+       <div><span>Addr</span><input type="text" name="Addr" placeholder="{{ net['addr'] }}"/></div>
+       <div><span>NetMask</span><input type="text" name="Netmask" placeholder="{{ net['netmask'] }}"/></div>
+       <div><span>Gateway</span><input type="text" name="Geteway" placeholder="{{ net['gateway'] }}"/></div>
+       <div><span>DNS</span><input type="text" name="Domain" placeholder="8.8.8.8"/></div>
+       <input type="submit" value="Submit"/>
+    </form>
+</body>
+
+</html>
