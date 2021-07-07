@@ -52,13 +52,11 @@
             border: none;
             display: block;
             height: 25px;
-            padding: 5px 10px;
+            padding: 1px 10px;
             text-align: start;
             border-radius: 2px;
             color: white;
-            font-weight: bold;
-            line-height: 22px;
-            font-size: 25px;
+            font-size: 16px;
             margin: 5px 0;
         }
 
@@ -117,17 +115,18 @@
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            width: 200px;
+            width: auto;
             background-color: rgba(78, 156, 175, 0.66);
             display: flex;
             margin: 10px 0;
             padding-right: 5px;
+	    border-radius: 2px;
         }
 
-        #_devices>div i {
-            font-size: 20px;
+        #_devices>div>div>a {
+            font-size: 16px;
             color: white;
-            margin: 5px;
+            margin: 5px 5px 5px 25px;
         }
 
         div#page-header>a {
@@ -201,11 +200,10 @@
     <div id="_devices" style="width: fit-content; position: absolute; left: -210px;top: 30px; z-index: 999;">
         {% for x in name.keys() %}
         <div>
-            <a class="button" onclick="myFunction(this)" href={{ url_for('proxy' , path=name[x]) }} target='_iframe'>{{
-                x }}</a>
+            <a class="button" onclick="myFunction(this)" href={{ url_for('proxy' , path=name[x]) }} target='_iframe'>{{ x }}</a>
             <div>
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                <i class="fa fa-trash" aria-hidden="true"></i>
+                <!--i class="fa fa-pencil-square-o" aria-hidden="true"></i-->
+                <a class="fa fa-trash" aria-hidden="true" href={{ url_for('delete', path=x) }}></a>
             </div>
         </div>
         {% endfor %}

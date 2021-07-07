@@ -2,7 +2,7 @@
 # @Date:   2021-06-26 11:38:36
 # @Last Modified by:   Li Yuan Rong
 # @Last Modified time: 2021-06-26 11:39:20
-from flask import Flask, request, render_template, Response, url_for, stream_with_context
+from flask import Flask, request, redirect, render_template, Response, url_for, stream_with_context
 from flask_cors import CORS
 from requests import get, post
 import requests
@@ -44,6 +44,19 @@ def proxy(path):
   if request.method == 'POST':
     encoded_data = request.data.decode('utf-8')
     return post(f'{proxy_url}{path}', data=encoded_data.encode('utf-8')).content
+
+
+@app.route('/delete/<path:path>')
+def delete(path):
+    with open("/etc/hosts", "r+") as f:
+       lines = f.readlines()
+       f.seek(0)
+       for line in lines:
+          if path != line.split()[1].split('.home')[0]:
+             f.write(line)
+       f.truncate()
+
+    return redirect(url_for('index'))
 
 @app.route('/setup')
 def setup():

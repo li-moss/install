@@ -1,7 +1,7 @@
 # @Author: Li Yuan Rong
 # @Date:   2021-06-19 08:41:50
 # @Last Modified by:   Li Yuan Rong
-# @Last Modified time: 2021-07-05 22:13:22
+# @Last Modified time: 2021-07-07 07:10:25
 #!/bin/sh
 
 ##################################################################################
@@ -76,9 +76,9 @@ echo "net.ipv4.ip_forward = 1" | tee -a /etc/sysctl.conf
 echo "net.ipv4.conf.all.accept_redirects = 0" | tee -a /etc/sysctl.conf
 echo "net.ipv4.conf.all.send_redirects = 0" | tee -a /etc/sysctl.conf
 
-iptables --table nat --append POSTROUTING --jump MASQUERADE
-for vpn in /proc/sys/net/ipv4/conf/*; do echo 0 > $vpn/accept_redirects; echo 0 > $vpn/send_redirects; done
-sysctl -p
+#iptables --table nat --append POSTROUTING --jump MASQUERADE
+#for vpn in /proc/sys/net/ipv4/conf/*; do echo 0 > $vpn/accept_redirects; echo 0 > $vpn/send_redirects; done
+#sysctl -p
 
 ######### 编辑 /etc/rc.local ############################################
 sed -i '/exit 0/ i\for vpn in /proc/sys/net/ipv4/conf/*; do echo 0 > $vpn/accept_redirects; echo 0 > $vpn/send_redirects; done\

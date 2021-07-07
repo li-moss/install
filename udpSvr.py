@@ -3,7 +3,7 @@
 
 import socket
 
-localIP     = "192.168.1.200"
+localIP     = "0.0.0.0"
 localPort   = 20001
 bufferSize  = 1024
 
@@ -27,7 +27,7 @@ while(True):
        lines = f.readlines()
        f.seek(0)
        for line in lines:
-          if keyword[1] not in line:
+          if keyword[2] not in line:
              f.write(line)
        f.write(clientMsg)
        f.truncate()
