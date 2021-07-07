@@ -1,7 +1,7 @@
 # @Author: Li Yuan Rong
 # @Date:   2021-06-19 08:41:50
 # @Last Modified by:   Li Yuan Rong
-# @Last Modified time: 2021-07-07 10:24:00
+# @Last Modified time: 2021-07-07 11:14:13
 #!/bin/sh
 
 ##################################################################################
@@ -81,7 +81,7 @@ echo "net.ipv4.conf.all.send_redirects = 0" | tee -a /etc/sysctl.conf
 #sysctl -p
 
 ######### 编辑 /etc/rc.local ############################################
-sed -i '/$i\for vpn in /proc/sys/net/ipv4/conf/*; do echo 0 > $vpn/accept_redirects; echo 0 > $vpn/send_redirects; done\
+sed -i '$i\for vpn in /proc/sys/net/ipv4/conf/*; do echo 0 > $vpn/accept_redirects; echo 0 > $vpn/send_redirects; done\
 iptables --table nat --append POSTROUTING --jump MASQUERADE\
 sudo python /home/pi/project/udpSvr.py &' /etc/rc.local
 
