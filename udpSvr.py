@@ -1,7 +1,7 @@
 # @Author: Li Yuan Rong
 # @Date:   2021-06-19 08:52:02
 # @Last Modified by:   Li Yuan Rong
-# @Last Modified time: 2021-07-08 12:33:41
+# @Last Modified time: 2021-07-08 18:32:49
 #!/usr/bin/python
 
 
@@ -24,7 +24,7 @@ print("UDP server up and listening")
 while(True):
    bytesAddressPair = UDPServerSocket.recvfrom(bufferSize)
    message = bytesAddressPair[0]
-   clientMsg = format(message)
+   clientMsg = message.decode("utf-8")
    keyword = clientMsg.split()
 
    with open("/etc/hosts", "r+") as f:
