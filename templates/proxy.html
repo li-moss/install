@@ -125,8 +125,9 @@
 
         #_devices>div>div>a {
             font-size: 16px;
-            color: white;
+            color: red;
             margin: 5px 5px 5px 25px;
+            visibility: hidden;
         }
 
         div#page-header>a {
@@ -201,7 +202,7 @@
         {% for x in name.keys() %}
         <div>
             <a class="button" onclick="myFunction(this)" href={{ url_for('proxy' , path=name[x]) }} target='_iframe'>{{ x }}</a>
-            <div>
+            <div ontouchmove="touchmoveFunction(event)" ontouchstart="touchstartFunction(event)">
                 <!--i class="fa fa-pencil-square-o" aria-hidden="true"></i-->
                 <a class="fa fa-trash" aria-hidden="true" href={{ url_for('delete', path=x) }}></a>
             </div>
@@ -213,6 +214,17 @@
             noresize='noresize' frameborder='0'></iframe>
     </div>
     <script>
+        var init_x=0;
+	function touchstartFunction(event) {
+	    init_x = event.touches[0].clientX;
+ 	}
+
+        function touchmoveFunction(event) {
+            var x = event.touches[0].clientX;
+            if(init_x > x) event.currentTarget.firstElementChild.style.visibility = 'visible'
+	    else event.currentTarget.firstElementChild.style.visibility = 'hidden'
+        }
+
         function homeFunction(el) {
             document.getElementById("_iframe").removeEventListener("load", loadFunction);
             window.location.reload(true);
